@@ -80,6 +80,37 @@ Instead, 1rem = 1em = 16px
         text-align: center;
     }
 
+    .hero-actions {
+        justify-content: center;
+    }
+
+    .step-description,
+    .meal-attribute,
+    .testimonial-text,
+    .feature-text,
+    .list-item,
+    .contacts,
+    .footer-link:link,
+    .footer-link:visited,
+    .plan-text,
+    .plan-details,
+    .delivered-text,
+    .cta-text,
+    .cta-form input,
+    .cta-form select,
+    .form-status {
+        font-size: 2rem;
+    }
+
+    .cta-form label,
+    .tag {
+        font-size: 1.75rem;
+    }
+
+    .menu-open {
+        overflow-y: hidden;
+    }
+
     .hero-img {
         width: 60%;
     }
@@ -119,10 +150,6 @@ Instead, 1rem = 1em = 16px
 
     .btn--form {
         margin-top: 1.2rem;
-    }
-
-    .menu-open {
-        overflow-y: hidden;
     }
 
     /* Mobile navigation */
@@ -299,6 +326,19 @@ Instead, 1rem = 1em = 16px
     .cta-img-box {
         height: 32rem;
         grid-row: 1;
+    }
+
+    .grid--footer {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        column-gap: 3.2rem;
+    }
+
+    .logo-col,
+    .address-col,
+    .nav-col {
+        grid-column: auto;
+        grid-row: auto;
+        margin-bottom: 0;
     }
 }
 

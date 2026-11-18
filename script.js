@@ -1,8 +1,6 @@
 "use strict";
 
-// Make dynamic current year instead of hard coded one:
-const yearElement = document.querySelector(".year");
-yearElement.textContent = String(new Date().getFullYear());
+document.querySelector(".year").textContent = new Date().getFullYear();
 
 const menuButton = document.querySelector(".btn-mobile-nav");
 const header = document.querySelector(".header");
@@ -107,20 +105,16 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
-// Fixing flexbox gap property missing in some Safari versions
+// Existing fallback for Safari versions without flexbox gap support.
 function checkFlexGap() {
   const flex = document.createElement("div");
   flex.style.display = "flex";
   flex.style.flexDirection = "column";
   flex.style.rowGap = "1px";
-
   flex.appendChild(document.createElement("div"));
   flex.appendChild(document.createElement("div"));
-
   document.body.appendChild(flex);
-  const isSupported = flex.scrollHeight === 1;
-  flex.parentNode.removeChild(flex);
-
-  if (!isSupported) document.body.classList.add("no-flexbox-gap");
+  if (flex.scrollHeight !== 1) document.body.classList.add("no-flexbox-gap");
+  flex.remove();
 }
 checkFlexGap();

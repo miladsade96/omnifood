@@ -66,10 +66,33 @@ html {
 
 body {
     font-family: "Rubik", sans-serif;
+    font-size: 1.8rem;
     font-weight: 400;
     line-height: 1;
     color: #555555;
     overflow-x: hidden;
+}
+
+.skip-link {
+    position: fixed;
+    top: 1.6rem;
+    left: 1.6rem;
+    z-index: 10000;
+    padding: 1.6rem 2.4rem;
+    background: #45260a;
+    color: #fff;
+    font-size: 1.8rem;
+    border-radius: 9px;
+    transform: translateY(-200%);
+}
+
+.skip-link:focus {
+    transform: translateY(0);
+}
+
+main:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 /*****************************************************/
@@ -142,7 +165,7 @@ body {
     display: block;
     font-size: 1.6rem;
     font-weight: 500;
-    color: #cf711f;
+    color: #a94f0c;
     text-transform: uppercase;
     margin-bottom: 1.6rem;
     letter-spacing: 1px;
@@ -169,13 +192,13 @@ body {
 
 .btn--full:link,
 .btn--full:visited {
-    background-color: #e67e22;
+    background-color: #a94f0c;
     color: #fff;
 }
 
 .btn--full:hover,
 .btn--full:active {
-    background-color: #cf711f;
+    background-color: #8f4208;
     color: #fff;
 }
 
@@ -210,7 +233,7 @@ body {
 .link:link,
 .link:visited {
     display: inline-block;
-    color: #e67e22;
+    color: #a94f0c;
     text-decoration: none;
     border-bottom: 1px solid currentColor;
     padding-bottom: 2px;
@@ -219,7 +242,7 @@ body {
 
 .link:hover,
 .link:active {
-    color: #cf711f;
+    color: #8f4208;
     border-bottom: 1px solid transparent;
 }
 
@@ -267,4 +290,13 @@ body {
 
 strong {
     font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+    }
 }
