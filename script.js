@@ -65,6 +65,48 @@ if ("IntersectionObserver" in window) {
   observer.observe(hero);
 }
 
+const form = document.querySelector(".cta-form");
+const formStatus = document.querySelector("#form-status");
+const submitButton = form.querySelector('[type="submit"]');
+const isLocalPreview = ["localhost", "127.0.0.1", "[::1]"].includes(location.hostname)
+  || location.protocol === "file:";
+
+if (isLocalPreview) {
+  formStatus.textContent = "Local preview: no sign-up request will be sent or saved.";
+}
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  if (!form.reportValidity() || submitButton.disabled) return;
+
+  if (isLocalPreview) {
+    formStatus.textContent = "Your details pass validation. This preview does not send or save a sign-up request.";
+    return;
+  }
+
+  submitButton.disabled = true;
+  submitButton.textContent = "Sending...";
+  form.setAttribute("aria-busy", "true");
+  formStatus.textContent = "Sending your request...";
+
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(new FormData(form)).toString(),
+    });
+    if (!response.ok) throw new Error("Sign-up request failed");
+    form.reset();
+    formStatus.textContent = "Thanks! Your sign-up request has been sent.";
+  } catch {
+    formStatus.textContent = "Your request could not be sent. Please try again or email hello@omnifood.com.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = "Sign up now";
+    form.removeAttribute("aria-busy");
+  }
+});
+
 // Fixing flexbox gap property missing in some Safari versions
 function checkFlexGap() {
   const flex = document.createElement("div");

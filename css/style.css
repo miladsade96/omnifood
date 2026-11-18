@@ -600,6 +600,17 @@
     box-shadow: 0 0 0 0.4rem rgba(253, 242, 233, 0.5);
 }
 
+.form-status {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    margin-top: 2.4rem;
+}
+
+.btn--form:disabled {
+    cursor: wait;
+    opacity: 0.7;
+}
+
 /*****************************************************/
 /* Footer Section */
 /*****************************************************/
