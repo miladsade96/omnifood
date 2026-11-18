@@ -15,6 +15,7 @@
     height: 9.6rem;
     padding: 0 4.8rem;
     position: relative;
+    z-index: 999;
 }
 
 .logo {
@@ -65,6 +66,7 @@
     border: none;
     background: none;
     cursor: pointer;
+    position: relative;
 
     display: none;
 }
@@ -73,9 +75,13 @@
     height: 4.8rem;
     width: 4.8rem;
     color: #333333;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linecap: round;
 }
 
-.icon-mobile-nav[name="close-outline"] {
+.close-icon {
     display: none;
 }
 

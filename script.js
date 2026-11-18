@@ -4,16 +4,56 @@
 const yearElement = document.querySelector(".year");
 yearElement.textContent = String(new Date().getFullYear());
 
-// Make mobile navigation functional:
-const btnNavEl = document.querySelector(".btn-mobile-nav");
-const headerEl = document.querySelector(".header");
-btnNavEl.addEventListener("click", function () {
-  headerEl.classList.toggle("nav-open");
-})
+const menuButton = document.querySelector(".btn-mobile-nav");
+const header = document.querySelector(".header");
+const navigation = document.querySelector(".main-nav");
+const mobileLayout = window.matchMedia("(max-width: 59em)");
+const backgroundContent = document.querySelectorAll("main, footer, .header > a");
 
-// Native links retain their default behavior; selecting a section closes the menu.
-document.querySelectorAll(".main-nav-link").forEach((link) => {
-  link.addEventListener("click", () => headerEl.classList.remove("nav-open"));
+function setMenuOpen(open, restoreFocus = false) {
+  const isOpen = open && mobileLayout.matches;
+  header.classList.toggle("nav-open", isOpen);
+  document.body.classList.toggle("menu-open", isOpen);
+  menuButton.setAttribute("aria-expanded", String(isOpen));
+  menuButton.setAttribute("aria-label", isOpen ? "Close navigation" : "Open navigation");
+  backgroundContent.forEach((element) => { element.inert = isOpen; });
+
+  // Keep focus on the disclosure button; Tab enters the visible navigation.
+  if (!isOpen && restoreFocus && mobileLayout.matches) menuButton.focus();
+}
+
+menuButton.addEventListener("click", () => {
+  setMenuOpen(menuButton.getAttribute("aria-expanded") !== "true");
+});
+
+// Native links handle hashes, history, modifier keys, email and phone links.
+navigation.addEventListener("click", (event) => {
+  if (event.target.closest("a")) setMenuOpen(false);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (menuButton.getAttribute("aria-expanded") !== "true") return;
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+    setMenuOpen(false, true);
+  } else if (event.key === "Tab") {
+    const firstLink = navigation.querySelector("a");
+    if (event.shiftKey && document.activeElement === firstLink) {
+      event.preventDefault();
+      menuButton.focus();
+    } else if (!event.shiftKey && document.activeElement === menuButton) {
+      event.preventDefault();
+      firstLink.focus();
+    }
+  }
+});
+
+mobileLayout.addEventListener("change", () => {
+  const focusWasInNavigation = navigation.contains(document.activeElement);
+  const focusWasOnButton = document.activeElement === menuButton;
+  setMenuOpen(false, focusWasInNavigation);
+  if (!mobileLayout.matches && focusWasOnButton) navigation.querySelector("a").focus();
 });
 
 // A placeholder reserves header space so sticky navigation cannot shift the page.

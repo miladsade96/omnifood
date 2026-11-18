@@ -27,7 +27,7 @@
     <img class="logo" src="img/omnifood-logo.png" alt="OmniFood Logo">
   </a>
 
-  <nav class="main-nav">
+  <nav class="main-nav" id="main-navigation" aria-label="Main navigation">
     <ul class="main-nav-list">
       <li><a class="main-nav-link" href="#how">How it works</a></li>
       <li><a class="main-nav-link" href="#meals">Meals</a></li>
@@ -37,9 +37,10 @@
     </ul>
   </nav>
 
-  <button class="btn-mobile-nav">
-    <ion-icon class="icon-mobile-nav" name="menu-outline"></ion-icon>
-    <ion-icon class="icon-mobile-nav" name="close-outline"></ion-icon>
+  <button class="btn-mobile-nav" type="button" aria-label="Open navigation"
+          aria-controls="main-navigation" aria-expanded="false">
+    <svg class="icon-mobile-nav menu-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M8 12h32M8 24h32M8 36h32"/></svg>
+    <svg class="icon-mobile-nav close-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="m12 12 24 24M36 12 12 36"/></svg>
   </button>
 </header>
 </div>
