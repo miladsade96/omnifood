@@ -1,0 +1,14 @@
+{
+  "name": "omnifood",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "check": "node --check script.js && node --check netlify-form.js && node --check scripts/build-site.cjs",
+    "test": "node --test tests/netlify-form.test.cjs",
+    "prebuild": "npm run check && npm test",
+    "build": "node scripts/build-site.cjs"
+  },
+  "devDependencies": {
+    "@netlify/plugin-lighthouse": "6.0.4"
+  }
+}
