@@ -12,13 +12,23 @@ python -m http.server 8088 --bind 127.0.0.1
 
 Open <http://127.0.0.1:8088>. Stop the server with Ctrl+C.
 
-## Sign-up form
+## Netlify deployment and sign-up form
 
-- Browser validation rejects empty fields, whitespace-only names and invalid email addresses.
-- On localhost or when opened as a file, the form is a preview: it neither sends nor saves personal details. Its status message says this explicitly.
-- The hosted form uses Netlify Forms: a POST request with URL-encoded data and a hidden `form-name` field. Submission feedback includes sending, success and retryable error states.
-- Receiving real requests requires enabling form detection on Netlify and deploying the site. This is not provided by Python's static server or by arbitrary static hosting. See the [official Netlify Forms setup](https://docs.netlify.com/manage/forms/setup/).
-- Hosting and live submission delivery have not been tested or changed during the local review.
+1. Merge this branch into the repository's production branch (`main` or `master`) and connect that branch to a Netlify project.
+2. Keep the build command empty. `netlify.toml` publishes the repository root (`.`).
+3. In Netlify, open **Forms**, enable **form detection**, then deploy or redeploy.
+4. Check that **sign-up** appears in Forms. Send one request from the deployed site and verify it in **Verified submissions** (or **Spam**).
+5. Configure **Forms > Submission notifications** if you want email alerts; no notification address is stored in this code.
+
+The form has a static HTML definition, a hidden `form-name` field and a `bot-field` honeypot. Hosted requests are URL-encoded POSTs. Pending requests disable editing and duplicate sends; failures keep input for retry. Browser validation rejects blank names and invalid emails.
+
+Localhost, loopback and file previews never submit or save personal details. Receiving a request does not create a subscription or customer account. Live receipt must be verified after deployment.
+
+See [Netlify Forms setup](https://docs.netlify.com/manage/forms/setup/) and [spam filtering](https://docs.netlify.com/manage/forms/spam-filters/).
+
+```powershell
+node --test tests/netlify-form.test.cjs
+```
 
 ## Interaction and layout checks
 

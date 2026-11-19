@@ -15,7 +15,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="css/general.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=a1dff23647">
   <link rel="stylesheet" href="css/queries.css">
   <title>Omnifood &mdash; Never cook again</title>
 </head>
@@ -445,8 +445,11 @@
             Start eating well today. You can cancel or pause anytime. And the first meal is on us!
           </p>
           <form class="cta-form" name="sign-up" method="POST" action="/"
-                data-netlify="true" aria-describedby="form-status">
+                data-netlify="true" netlify-honeypot="bot-field" aria-describedby="form-status">
             <input type="hidden" name="form-name" value="sign-up">
+            <p hidden>
+              <label>Leave this field empty: <input name="bot-field" type="text" autocomplete="off" tabindex="-1"></label>
+            </p>
             <div>
               <label for="full-name">Full Name</label>
               <input id="full-name" type="text" name="full-name" placeholder="John Smith"
@@ -534,7 +537,8 @@
   </div>
 </footer>
 
-<script src="script.js"></script>
+<script src="netlify-form.js?v=b8b47dae52"></script>
+<script src="script.js?v=48e522a0d9"></script>
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </body>
